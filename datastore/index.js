@@ -34,22 +34,15 @@ exports.readAll = (callback) => {
     return { id, text };
   });
   callback(null, data); */
+  var data = [];
   fs.readdir(`${exports.dataDir}`, (err, files) => {
     if (err) {
       callback(err);
     } else {
-      // callback(null, {id, text});
-      //console.log('files', files);
-      // files = ['0001', '0002']
-      console.log('priyanka', `${exports.dataDir}/${files}`);
-      var data = _.map(files, fs.readFile(`${exports.dataDir}/${files}`, (err, fileData) => {
-        if (err) {
-          callback(err);
-        } else {
-          callback(null, {id: files, text: fileData});
-        }
-      }));
-
+      files.forEach(file => {
+        var trimmedFile = file.substring(0, file.length - 4);
+        data.push({id: trimmedFile, text: trimmedFile});
+      });
       callback(null, data);
     }
   });
