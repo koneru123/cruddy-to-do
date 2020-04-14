@@ -30,10 +30,29 @@ exports.create = (text, callback) => {
 
 //GET call
 exports.readAll = (callback) => {
-  var data = _.map(items, (text, id) => {
+  /* var data = _.map(items, (text, id) => {
     return { id, text };
   });
-  callback(null, data);
+  callback(null, data); */
+  fs.readdir(`${exports.dataDir}`, (err, files) => {
+    if (err) {
+      callback(err);
+    } else {
+      // callback(null, {id, text});
+      //console.log('files', files);
+      // files = ['0001', '0002']
+      console.log('priyanka', `${exports.dataDir}/${files}`);
+      var data = _.map(files, fs.readFile(`${exports.dataDir}/${files}`, (err, fileData) => {
+        if (err) {
+          callback(err);
+        } else {
+          callback(null, {id: files, text: fileData});
+        }
+      }));
+
+      callback(null, data);
+    }
+  });
 };
 
 // get call based on id
