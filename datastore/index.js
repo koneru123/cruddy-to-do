@@ -9,10 +9,30 @@ var items = {};
 
 // Post call
 exports.create = (text, callback) => {
-  var id = counter.getNextUniqueId(callback);
-  console.log(id);
-  items[id] = text;
-  callback(null, { id, text });
+  // var id = counter.getNextUniqueId(()=>{});
+
+  //console.log(id);
+  // console.log('hello world');
+  // items[id] = text;
+
+  //create a new file at items[id]
+
+  // fs.writeFile(file, data[, options], callback)
+
+  // file =
+
+
+  // callback(null, { id, text });
+
+  /*  fs.readFile('/etc/passwd', (err, data) => {
+    if (err) throw err;
+    console.log(data);
+  }); */
+
+  //starter code:
+  // var id = counter.getNextUniqueId();
+  // items[id] = text;
+  // callback(null, { id, text });
 };
 
 //GET call

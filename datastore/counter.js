@@ -48,9 +48,6 @@ exports.getNextUniqueId = (callback) => {
       writeCounter(id, callback);
     }
   });
-
-
-
 };
 
 
