@@ -10,29 +10,22 @@ var items = {};
 // Post call
 exports.create = (text, callback) => {
   // var id = counter.getNextUniqueId(()=>{});
-
-  //console.log(id);
-  // console.log('hello world');
-  // items[id] = text;
-
-  //create a new file at items[id]
-
-  // fs.writeFile(file, data[, options], callback)
-
-  // file =
-
-
-  // callback(null, { id, text });
-
-  /*  fs.readFile('/etc/passwd', (err, data) => {
-    if (err) throw err;
-    console.log(data);
-  }); */
-
-  //starter code:
-  // var id = counter.getNextUniqueId();
-  // items[id] = text;
-  // callback(null, { id, text });
+  counter.getNextUniqueId((err, id) => {
+    if (err) {
+      console.log('THERE WAS AN ERROR IN creating a unique id in CREATE: ', err);
+    } else {
+      //console.log('path', `${dataDir}${id}`);
+      fs.writeFile(`${exports.dataDir}/${id}.txt`, text, (err) => {
+        if (err) {
+          //return 'The file has not been saved!', err;
+          callback(err);
+        } else {
+          callback(null, { id, text });
+          // { id:id, text:text } 
+        }
+      });
+    }
+  });
 };
 
 //GET call
@@ -79,6 +72,7 @@ exports.delete = (id, callback) => {
 // Config+Initialization code -- DO NOT MODIFY /////////////////////////////////
 
 exports.dataDir = path.join(__dirname, 'data');
+//might only work for macs, pcs have a different file system.
 
 exports.initialize = () => {
   if (!fs.existsSync(exports.dataDir)) {
