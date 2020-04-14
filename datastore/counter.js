@@ -38,13 +38,26 @@ const writeCounter = (count, callback) => {
 
 // Public API - Fix this function //////////////////////////////////////////////
 
-exports.getNextUniqueId = () => {
-  counter = counter + 1;
-  return zeroPaddedNumber(counter);
+//should accept a callback so it knows what to do with the data when it
+exports.getNextUniqueId = (callback) => {
+  readCounter((err, id) => {
+    if (err) {
+      callback(null, 0);
+    } else {
+      id = id + 1;
+      writeCounter(id, callback);
+    }
+  });
+
+
+
 };
+
+
 
 
 
 // Configuration -- DO NOT MODIFY //////////////////////////////////////////////
 
 exports.counterFile = path.join(__dirname, 'counter.txt');
+//  datastore/counter.txt

@@ -7,12 +7,15 @@ var items = {};
 
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
+// Post call
 exports.create = (text, callback) => {
-  var id = counter.getNextUniqueId();
+  var id = counter.getNextUniqueId(callback);
+  console.log(id);
   items[id] = text;
   callback(null, { id, text });
 };
 
+//GET call
 exports.readAll = (callback) => {
   var data = _.map(items, (text, id) => {
     return { id, text };
@@ -20,6 +23,7 @@ exports.readAll = (callback) => {
   callback(null, data);
 };
 
+// get call based on id
 exports.readOne = (id, callback) => {
   var text = items[id];
   if (!text) {
@@ -29,6 +33,7 @@ exports.readOne = (id, callback) => {
   }
 };
 
+// PUT call
 exports.update = (id, text, callback) => {
   var item = items[id];
   if (!item) {
@@ -39,6 +44,7 @@ exports.update = (id, text, callback) => {
   }
 };
 
+// delete call
 exports.delete = (id, callback) => {
   var item = items[id];
   delete items[id];
